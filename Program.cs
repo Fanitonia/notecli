@@ -29,13 +29,8 @@ namespace notecli
 
             if (args[0] == "help" || args[0] == "h")
             {
-                Console.WriteLine("\nUsage:\n");
-                Console.WriteLine("notecli [create | c] [YOUR NOTE]");
-                Console.WriteLine("notecli [delete | d] [NOTE ID]");
-                Console.WriteLine("notecli [update | u] [NOTE ID]");
-                Console.WriteLine("notecli [finish | f] [NOTE ID]");
-                Console.WriteLine("notecli [list | l]");
-             
+                NoteManager.PrintHelp();
+
             } 
             else if (args[0] == "create" || args[0] == "c")
             {
@@ -43,10 +38,10 @@ namespace notecli
                 {
                     Console.WriteLine("\nPlease provide a note like this:\n" +
                         "   notecli [create | c] [YOUR NOTE]");
-                } else
+                }
+                else
                 {
                     notes = notes.AddNote(args[1]);
-                    Console.WriteLine("Your note created!");
                 }
             } 
             else if (args[0] == "delete" || args[0] == "d") 
@@ -58,16 +53,7 @@ namespace notecli
                 }
                 else
                 {
-                    int noteId = -1;
-                    bool isValidId = int.TryParse(args[1], out noteId) && (noteId > 0 && noteId <= notes.Count);
-                    if (isValidId)
-                    {
-                        notes.RemoveAt(noteId);
-                        Console.WriteLine($"Note {noteId} deleted");
-                    } else
-                    {
-                        Console.WriteLine("Invalid note ID. Please provide a valid integer ID.");
-                    }   
+                    notes = notes.DeleteNote(args[1]);
                 }
             }
             else if (args[0] == "update" || args[0] == "u")
@@ -79,26 +65,7 @@ namespace notecli
                 }
                 else
                 {
-                    int noteId = -1;
-                    bool isValidId = int.TryParse(args[1], out noteId) && (noteId > 0 && noteId <= notes.Count);
-                    if (isValidId)
-                    {
-                        Console.WriteLine("Please enter the updated note:");
-                        string? updatedNote = Console.ReadLine();
-                        if (!string.IsNullOrWhiteSpace(updatedNote))
-                        {
-                            notes[noteId - 1].Text = updatedNote;
-                            Console.WriteLine($"Note {noteId} updated");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Note text cannot be empty.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid note ID. Please provide a valid integer ID.");
-                    }
+                    notes.UpdateNote(args[1]);
                 }
             }
             else if (args[0] == "finish" || args[0] == "f")
@@ -110,17 +77,7 @@ namespace notecli
                 }
                 else
                 {
-                    int noteId = -1;
-                    bool isValidId = int.TryParse(args[1], out noteId) && (noteId > 0 && noteId <= notes.Count);
-                    if (isValidId)
-                    {
-                        notes[noteId - 1].IsFinished = true;
-                        Console.WriteLine($"Note {noteId} deleted");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid note ID. Please provide a valid integer ID.");
-                    }
+                    notes.FinishNote(args[1]);
                 }
             }
             else if (args[0] == "list" || args[0] == "l")
@@ -128,15 +85,11 @@ namespace notecli
                 if(notes.Count == 0)
                 {
                     Console.WriteLine("No notes available.");
-                    return;
                 }
-
-                Console.WriteLine("ID\tCREATED");
-                notes.ForEach(note =>
+                else
                 {
-                    int index = notes.IndexOf(note) + 1;
-                    Console.WriteLine($"{index}\t{note.CreatedAt.ToString("dd/MM/yyyy")}\t{note.Text}");
-                });
+                    NoteManager.ListNotes(notes);
+                }
             }
             else
             {

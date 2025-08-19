@@ -41,6 +41,7 @@ namespace notecli
         [JsonConstructor]
         public Note()
         {
+
         }
     }
 }
