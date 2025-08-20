@@ -8,6 +8,7 @@ namespace notecli
         {
             // SETUP
             string userFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
             DirectoryInfo directory = Directory.CreateDirectory(userFilePath + @"\NoteCLI");
             string finalPath = directory.FullName + @"\notes.json";
 
@@ -32,12 +33,12 @@ namespace notecli
                 NoteManager.PrintHelp();
 
             } 
-            else if (args[0] == "create" || args[0] == "c")
+            else if (args[0] == "add" || args[0] == "a")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note like this:\n" +
-                        "   notecli [create | c] [YOUR NOTE]");
+                        "   notecli [add | a] [YOUR NOTE]");
                 }
                 else
                 {
@@ -61,7 +62,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   notecli [update | u] [NOTE ID]");
+                        "   notecli [change | c] [NOTE ID]");
                 }
                 else
                 {
@@ -80,16 +81,22 @@ namespace notecli
                     notes.FinishNote(args[1]);
                 }
             }
-            else if (args[0] == "list" || args[0] == "l")
+            else if (args[0] == "unfinish" || args[0] == "uf")
             {
-                if(notes.Count == 0)
+                if (args.Length != 2)
                 {
-                    Console.WriteLine("No notes available.");
+                    Console.WriteLine("\nPlease provide a note id like this:\n" +
+                        "   notecli [finish | f] [NOTE ID]");
                 }
                 else
                 {
-                    NoteManager.ListNotes(notes);
+                    notes.UnfinishNote(args[1]);
                 }
+            }
+            else if (args[0] == "list" || args[0] == "l")
+            {
+                bool showAll = args.Length == 2 && args[1] == "--all";
+                NoteManager.ListNotes(notes, showAll);
             }
             else
             {
