@@ -12,7 +12,7 @@ A command line tool for basic note-taking. Built with .NET Core.
 ### Installation
 * Install the [Tool][nuget] as a global tool.
 ```
-$ dotnet tool install --g notecli
+$ dotnet tool install -g notecli
 ```
 
 ## Usage
