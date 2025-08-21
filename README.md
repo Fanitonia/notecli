@@ -10,8 +10,8 @@ A command line tool for basic note-taking. Built with .NET Core.
 * .NET
 
 ### Installation
-* Install the [Tool][nuget] as a global tool.
-```
+* Install the [tool][nuget] with dotnet.
+```sh
 $ dotnet tool install -g notecli
 ```
 
@@ -30,7 +30,7 @@ Commands:
   help                   Get help about usage.
 
 Options:
-  --all                  Show all notes including finished
+  --all | -a             Show all notes including finished
 ```
 
 

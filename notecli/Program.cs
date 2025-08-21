@@ -24,7 +24,7 @@ namespace notecli
             // ARGUMENTS HANDLING
             if (args.Length == 0)
             {
-                Console.WriteLine("No arguments provided. Type notecli help for usage.");
+                Console.WriteLine("No arguments provided. Type note help for usage.");
                 return;
             }
 
@@ -38,7 +38,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note like this:\n" +
-                        "   notecli [add | a] [YOUR NOTE]");
+                        "   note [add | a] [YOUR NOTE]");
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   notecli [delete | d] [NOTE ID]");
+                        "   note [delete | d] [NOTE ID]");
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   notecli [change | c] [NOTE ID]");
+                        "   note [update | u] [NOTE ID]");
                 }
                 else
                 {
@@ -74,7 +74,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   notecli [finish | f] [NOTE ID]");
+                        "   note [finish | f] [NOTE ID]");
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace notecli
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   notecli [finish | f] [NOTE ID]");
+                        "   note [ufinish | uf] [NOTE ID]");
                 }
                 else
                 {
@@ -95,12 +95,12 @@ namespace notecli
             }
             else if (args[0] == "list" || args[0] == "l")
             {
-                bool showAll = args.Length == 2 && args[1] == "--all";
+                bool showAll = args.Length == 2 && (args[1] == "--all" || args[1] == "-a");
                 NoteManager.ListNotes(notes, showAll);
             }
             else
             {
-                Console.WriteLine("Unknown command. Type notecli help for usage.");
+                Console.WriteLine("Unknown command. Type note help for usage.");
             }
 
 

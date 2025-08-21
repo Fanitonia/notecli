@@ -11,13 +11,13 @@ namespace notecli
         public static void PrintHelp()
         {
             Console.WriteLine("\nUsage:\n");
-            Console.WriteLine("notecli add | a [YOUR NOTE]");
-            Console.WriteLine("notecli delete | d [NOTE ID]");
-            Console.WriteLine("notecli update | u [NOTE ID]");
-            Console.WriteLine("notecli finish | f [NOTE ID]");
-            Console.WriteLine("notecli unfinish | uf [NOTE ID]");
-            Console.WriteLine("notecli list | l [OPTION]");
-            Console.WriteLine("\nOptions: -all (Show all notes including finished)");
+            Console.WriteLine("note add | a [YOUR NOTE]");
+            Console.WriteLine("note delete | d [NOTE ID]");
+            Console.WriteLine("note update | u [NOTE ID]");
+            Console.WriteLine("note finish | f [NOTE ID]");
+            Console.WriteLine("note unfinish | uf [NOTE ID]");
+            Console.WriteLine("note list | l [OPTIONS]");
+            Console.WriteLine("\nOptions: --all | -a (Show all notes including finished)");
         }
 
         public static List<Note> AddNote(this List<Note> notes, string text)
@@ -25,7 +25,7 @@ namespace notecli
             if(string.IsNullOrWhiteSpace(text))
             {
                 Console.WriteLine("Please proivide a new note." +
-                    "   notecli add | a [note]");
+                    "   note add | a [note]");
                 return notes;
             }
 
