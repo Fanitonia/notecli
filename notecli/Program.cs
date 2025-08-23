@@ -102,6 +102,10 @@ namespace notecli
             {
                 notes.ClearNotes();
             }
+            else if (args[0] == "--version" || args[0] == "-v")
+            {
+                NoteManager.ShowVersion();
+            }
             else
             {
                 Console.WriteLine("Unknown command. Type note help for usage.");

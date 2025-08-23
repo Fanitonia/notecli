@@ -21,7 +21,8 @@ namespace notecli
             Console.WriteLine("\tlist [options]");
             Console.WriteLine("\tclear");
             Console.WriteLine("\nOptions:");
-            Console.WriteLine("\t--all | -a (Show all notes including finished)");
+            Console.WriteLine("\t--all | -a  (Show all notes including finished)");
+            Console.WriteLine("\t--version | -v  (Check the current version of notecli)");
         }
 
         public static List<Note> AddNote(this List<Note> notes, string text)
@@ -185,6 +186,11 @@ namespace notecli
             }
 
             return notes;
+        }
+
+        public static void ShowVersion()
+        {
+            Console.WriteLine("1.2.0");
         }
     }
 }
