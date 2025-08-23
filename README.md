@@ -17,20 +17,22 @@ $ dotnet tool install -g notecli
 
 ## Usage
 ```
-(1.1.0)
+(1.2.0)
 Usage: note [command] [options]
 
 Commands:
-  add [YOUR NOTE]        Create new note.
-  delete [NOTE ID]       Delete a note.
-  update [NOTE ID]       Update note text.
-  finish [NOTE ID]       Mark a note as finished.
-  unfinish [NOTE ID]     Unmark the note.
-  list [OPTIONS]         List all notes.
+  add <YOUR NOTE>        Create new note.
+  delete <NOTE ID>       Delete a note.
+  update <NOTE ID>       Update note text.
+  finish <NOTE ID>       Mark a note as finished.
+  unfinish <NOTE ID>     Unmark the note.
+  list [options]         List all notes.
+  clear                  Clear all your notes.
   help                   Get help about usage.
 
 Options:
-  --all | -a             Show all notes including finished
+  --all | -a             Show all notes including finished.
+  --version | -v         Check the current version of notecli.
 ```
 
 
