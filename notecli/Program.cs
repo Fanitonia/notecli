@@ -28,75 +28,79 @@ namespace notecli
                 return;
             }
 
-            if (args[0] == "help" || args[0] == "h")
+            if (args[0] == "help")
             {
                 NoteManager.PrintHelp();
 
             } 
-            else if (args[0] == "add" || args[0] == "a")
+            else if (args[0] == "add")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note like this:\n" +
-                        "   note [add | a] [YOUR NOTE]");
+                        "   note add [YOUR NOTE]");
                 }
                 else
                 {
                     notes = notes.AddNote(args[1]);
                 }
             } 
-            else if (args[0] == "delete" || args[0] == "d") 
+            else if (args[0] == "delete") 
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note [delete | d] [NOTE ID]");
+                        "   note delete [NOTE ID]");
                 }
                 else
                 {
                     notes = notes.DeleteNote(args[1]);
                 }
             }
-            else if (args[0] == "update" || args[0] == "u")
+            else if (args[0] == "update")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note [update | u] [NOTE ID]");
+                        "   note update [NOTE ID]");
                 }
                 else
                 {
                     notes.UpdateNote(args[1]);
                 }
             }
-            else if (args[0] == "finish" || args[0] == "f")
+            else if (args[0] == "finish")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note [finish | f] [NOTE ID]");
+                        "   note finish [NOTE ID]");
                 }
                 else
                 {
                     notes.FinishNote(args[1]);
                 }
             }
-            else if (args[0] == "unfinish" || args[0] == "uf")
+            else if (args[0] == "unfinish")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note [ufinish | uf] [NOTE ID]");
+                        "   note unfinish [NOTE ID]");
                 }
                 else
                 {
                     notes.UnfinishNote(args[1]);
                 }
             }
-            else if (args[0] == "list" || args[0] == "l")
+            else if (args[0] == "list")
             {
                 bool showAll = args.Length == 2 && (args[1] == "--all" || args[1] == "-a");
                 NoteManager.ListNotes(notes, showAll);
+            }
+            else if (args[0] == "clear")
+            {
+                notes.ClearNotes();
             }
             else
             {
