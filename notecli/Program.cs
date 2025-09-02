@@ -69,28 +69,28 @@ namespace notecli
                     notes.UpdateNote(args[1]);
                 }
             }
-            else if (args[0] == "finish")
+            else if (args[0] == "done")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note finish [NOTE ID]");
+                        "   note done [NOTE ID]");
                 }
                 else
                 {
-                    notes.FinishNote(args[1]);
+                    notes.DoneNote(args[1]);
                 }
             }
-            else if (args[0] == "unfinish")
+            else if (args[0] == "undone")
             {
                 if (args.Length != 2)
                 {
                     Console.WriteLine("\nPlease provide a note id like this:\n" +
-                        "   note unfinish [NOTE ID]");
+                        "   note undone [NOTE ID]");
                 }
                 else
                 {
-                    notes.UnfinishNote(args[1]);
+                    notes.UndoneNote(args[1]);
                 }
             }
             else if (args[0] == "list")
@@ -100,7 +100,8 @@ namespace notecli
             }
             else if (args[0] == "clear")
             {
-                notes.ClearNotes();
+                bool clearOnlyDone = args.Length == 2 && (args[1] == "--done" || args[1] == "-d");
+                notes.ClearNotes(clearOnlyDone);
             }
             else if (args[0] == "--version" || args[0] == "-v")
             {

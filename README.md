@@ -10,31 +10,34 @@ A command line tool for basic note-taking. Built with .NET Core.
 * .NET
 
 ### Installation
-* Install the [tool][nuget] with dotnet.
+* Install the [NoteCLI][nuget] with dotnet.
 ```sh
 $ dotnet tool install -g notecli
 ```
 
 ## Usage
 ```
-(1.2.0)
-Usage: note [command] [options]
+(v1.3.0)
+Usage: 
+  note [notecli-options] 
+  note [command] [command-options]
 
 Commands:
   add <YOUR NOTE>        Create new note.
   delete <NOTE ID>       Delete a note.
   update <NOTE ID>       Update note text.
-  finish <NOTE ID>       Mark a note as finished.
-  unfinish <NOTE ID>     Unmark the note.
+  done <NOTE ID>         Mark a note as done.
+  undone <NOTE ID>       Unmark the note.
   list [options]         List all notes.
-  clear                  Clear all your notes.
+  clear [options]        Clear all your notes.
   help                   Get help about usage.
 
 Options:
-  --all | -a             Show all notes including finished.
+  --all | -a             Show all notes including done.
+  --done | -d            Clear only done notes.
   --version | -v         Check the current version of notecli.
 ```
 
 
 [nuget]: https://www.nuget.org/packages/notecli/
-[nuget-badge]: https://img.shields.io/nuget/v/notecli
+[nuget-badge]: https://img.shields.io/badge/nuget-v1.3.0-blue

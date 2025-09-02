@@ -10,19 +10,22 @@ namespace notecli
     {
         public static void PrintHelp()
         {
-            Console.WriteLine("\nUsage:");
-            Console.WriteLine("note [command] [options]\n");
-            Console.WriteLine("Commands:");
-            Console.WriteLine("\tadd <YOUR NOTE>");
-            Console.WriteLine("\tdelete <NOTE ID>");
-            Console.WriteLine("\tupdate <NOTE ID>");
-            Console.WriteLine("\tfinish <NOTE ID>");
-            Console.WriteLine("\tunfinish <NOTE ID>");
-            Console.WriteLine("\tlist [options]");
-            Console.WriteLine("\tclear");
-            Console.WriteLine("\nOptions:");
-            Console.WriteLine("\t--all | -a  (Show all notes including finished)");
-            Console.WriteLine("\t--version | -v  (Check the current version of notecli)");
+            Console.WriteLine("\nnote [notecli-options]");
+            Console.WriteLine("      notecli-options:");
+            Console.WriteLine("        --version | -v  (Check the current version of notecli)");
+
+            Console.WriteLine("\nnote [command] <command-argument> [command-options]");
+            Console.WriteLine("      Commands:");
+            Console.WriteLine("        add <YOUR NOTE>");
+            Console.WriteLine("        delete <NOTE ID>");
+            Console.WriteLine("        update <NOTE ID>");
+            Console.WriteLine("        done <NOTE ID>");
+            Console.WriteLine("        undone <NOTE ID>");
+            Console.WriteLine("        list [options]");
+            Console.WriteLine("        clear [options]\n");
+            Console.WriteLine("      command-options:");
+            Console.WriteLine("        --all | -a   (List all notes including done)");
+            Console.WriteLine("        --done | -d  (clear only done notes)");
         }
 
         public static List<Note> AddNote(this List<Note> notes, string text)
@@ -83,23 +86,22 @@ namespace notecli
             return notes;
         }
 
-        public static List<Note> FinishNote(this List<Note> notes, string idArgument)
+        public static List<Note> DoneNote(this List<Note> notes, string idArgument)
         {
             int noteId = -1;
             bool isValidId = int.TryParse(idArgument, out noteId) && (noteId > 0 && noteId <= notes.Count);
             if (isValidId)
             {
-                if (notes[noteId - 1].IsFinished)
+                if (notes[noteId - 1].IsDone)
                 {
-                    Console.WriteLine($"Note {noteId} is already finished.");
+                    Console.WriteLine($"Note {noteId} is already done.");
                 }
                 else
                 {
-                    notes[noteId - 1].IsFinished = true;
+                    notes[noteId - 1].IsDone = true;
                     notes[noteId - 1].UpdatedAt = DateTime.Now;
-                    Console.WriteLine($"Note {noteId} finished");
+                    Console.WriteLine($"Note {noteId} marked as done.");
                 }
-
             }
             else
             {
@@ -109,22 +111,22 @@ namespace notecli
             return notes;
         }
 
-        public static List<Note> UnfinishNote(this List<Note> notes, string idArgument)
+        public static List<Note> UndoneNote(this List<Note> notes, string idArgument)
         {
             int noteId = -1;
             bool isValidId = int.TryParse(idArgument, out noteId) && (noteId > 0 && noteId <= notes.Count);
             if (isValidId)
             {
-                if (notes[noteId - 1].IsFinished)
+                if (notes[noteId - 1].IsDone)
                 {
-                    notes[noteId - 1].IsFinished = false;
+                    notes[noteId - 1].IsDone = false;
                     notes[noteId - 1].UpdatedAt = DateTime.Now;
-                    Console.WriteLine($"Note {noteId} unfinished");
+                    Console.WriteLine($"Note {noteId} marked as undone");
 
                 }
                 else
                 {
-                    Console.WriteLine($"Note {noteId} is already unfinished.");
+                    Console.WriteLine($"Note {noteId} is already undone.");
                 }
             }
             else
@@ -150,11 +152,11 @@ namespace notecli
 
                 notes.ForEach(note =>
                 {
-                    if (note.IsFinished && !showAll)
+                    if (note.IsDone && !showAll)
                         return;
 
                     int index = notes.IndexOf(note) + 1;
-                    string status = note.IsFinished ? " X" : "";
+                    string status = note.IsDone ? " X" : "";
 
                     if (showAll)
                         Console.WriteLine("{0,-5}{1,-13}{2,-8}{3,-10}", index, note.CreatedAt.ToString("dd/MM/yyyy"), status, note.Text);
@@ -162,27 +164,32 @@ namespace notecli
                         Console.WriteLine("{0,-5}{1,-13}{2,-10}", index, note.CreatedAt.ToString("dd/MM/yyyy"), note.Text);
                 });
             }
-
         }
 
-        public static List<Note> ClearNotes(this List<Note> notes)
+        public static List<Note> ClearNotes(this List<Note> notes, bool? clearOnlyDoneNotes = false)
         {
             if (notes.Count == 0)
             {
                 Console.WriteLine("No notes available.");
+                return notes;
             }
-            else
-            {
-                Console.Write("Are you sure you want to clear all your notes. This action cannot be undone (Y/n): ");
-                string? input = Console.ReadLine();
 
-                if ( input == "Y")
-                {
-                    notes.Clear();
-                    Console.WriteLine("Your notes are deleted.");
-                }
+            string noteType = clearOnlyDoneNotes == true ? "done notes" : "notes";
+
+            Console.Write($"Are you sure you want to clear all your {noteType}. This action cannot be undone (Y/n): ");
+            string? input = Console.ReadLine();
+
+            if ( input == "Y")
+            {
+                if (clearOnlyDoneNotes == true)
+                    notes.RemoveAll(note => note.IsDone);
                 else
-                    Console.WriteLine("Your notes are safe.");
+                    notes.Clear();
+
+                Console.WriteLine($"Your {noteType} are deleted.");
+            } else
+            {
+                Console.WriteLine("Your notes are safe.");
             }
 
             return notes;

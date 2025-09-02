@@ -8,7 +8,7 @@ namespace notecli
         private DateTime createdAt = DateTime.Now;
         private DateTime? updatedAt = null;
         private string text = string.Empty;
-        private bool isFinished = false;
+        private bool isDone = false;
 
         // properties
         public DateTime CreatedAt 
@@ -26,10 +26,10 @@ namespace notecli
             get => text;
             set => text = value;
         }
-        public bool IsFinished
+        public bool IsDone
         {
-            get => isFinished;
-            set => isFinished = value;
+            get => isDone;
+            set => isDone = value;
         }
 
         // constructors
