@@ -40,4 +40,4 @@ Options:
 
 
 [nuget]: https://www.nuget.org/packages/notecli/
-[nuget-badge]: https://img.shields.io/badge/nuget-v1.3.0-blue
+[nuget-badge]: https://img.shields.io/badge/nuget-v1.3.1-blue

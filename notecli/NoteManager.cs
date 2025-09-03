@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -197,7 +198,12 @@ namespace notecli
 
         public static void ShowVersion()
         {
-            Console.WriteLine("1.2.0");
+            Version? version = Assembly.GetEntryAssembly()!.GetName().Version!;
+
+            if (version is not null)
+                Console.WriteLine("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+            else
+                Console.WriteLine("Version information not available.");
         }
     }
 }
